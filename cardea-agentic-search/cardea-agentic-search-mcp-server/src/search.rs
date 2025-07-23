@@ -17,7 +17,7 @@ use rmcp::{
     tool, tool_handler, tool_router,
 };
 use serde_json::{Value, json};
-use std::{collections::HashSet, sync::OnceLock};
+use std::collections::HashSet;
 use tracing::{debug, error, info, warn};
 
 const PROMPT_KEYWORD_EXTRACTOR: &str = r#"
@@ -40,12 +40,6 @@ Examples:
 - Input: "什么是人工智能对教育的影响？"
   Output: 人工智能 教育 影响
 "#;
-
-static SEARCH_TOOL_PROMPT: OnceLock<String> = OnceLock::new();
-
-pub fn set_search_tool_prompt(prompt: String) {
-    SEARCH_TOOL_PROMPT.set(prompt).unwrap_or_default();
-}
 
 #[derive(Debug, Clone)]
 pub struct AgenticSearchServer {
@@ -662,7 +656,7 @@ impl ServerHandler for AgenticSearchServer {
     ) -> Result<GetPromptResult, McpError> {
         match name.as_str() {
             "search" => {
-                let prompt = SEARCH_TOOL_PROMPT.get().unwrap();
+                let prompt = "Perform a search for the given query";
 
                 Ok(GetPromptResult {
                     description: None,

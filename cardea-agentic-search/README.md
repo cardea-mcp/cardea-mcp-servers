@@ -30,7 +30,6 @@ These options apply to all search modes:
 
 - `-s, --socket-addr`: Socket address to bind to (default: 127.0.0.1:8009)
 - `-t, --transport`: Transport type (sse, stream-http) (default: stream-http)
-- `--search-tool-prompt`: The prompt for the `search` mcp tool (default: "Perform a search for the given query")
 
 #### 1. Qdrant Vector Search Only
 
