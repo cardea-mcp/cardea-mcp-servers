@@ -6,7 +6,7 @@ use rmcp::transport::{
     sse_server::SseServer,
     streamable_http_server::{StreamableHttpService, session::local::LocalSessionManager},
 };
-use search::{ConnectionConfig, KeywordSearchServer, set_search_tool_prompt};
+use search::{ConnectionConfig, KeywordSearchServer};
 use tokio::sync::RwLock as TokioRwLock;
 use tracing_subscriber::{self, layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -32,12 +32,6 @@ struct Args {
     /// Maximum number of query results to return
     #[arg(long, default_value = "10")]
     limit: usize,
-    /// The prompt for the `search` mcp tool
-    #[arg(
-        long,
-        default_value = "Please extract 3 to 5 keywords from my question, separated by spaces. Then, try to return a tool call that invokes the keyword search tool.\n\nMy question is: {query}"
-    )]
-    search_tool_prompt: String,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
@@ -57,9 +51,6 @@ async fn main() -> anyhow::Result<()> {
         .init();
 
     let args = Args::parse();
-
-    // Set the search tool prompt from CLI
-    set_search_tool_prompt(args.search_tool_prompt);
 
     let connection_config = ConnectionConfig {
         base_url: args.base_url,
