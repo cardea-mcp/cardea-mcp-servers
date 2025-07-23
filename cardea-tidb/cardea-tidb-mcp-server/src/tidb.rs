@@ -8,7 +8,7 @@ use rmcp::{
     service::RequestContext,
     tool, tool_handler, tool_router,
 };
-use std::{result::Result, sync::OnceLock};
+use std::result::Result;
 use tracing::{error, info};
 
 const PROMPT_SEARCH_TOOL: &str = r#"
@@ -46,12 +46,6 @@ Examples:
     {"name": "search", "arguments": {"query": "artificial intelligence education impact"}}
     </tool_call>
 "#;
-
-static SEARCH_TOOL_PROMPT: OnceLock<String> = OnceLock::new();
-
-pub fn set_search_tool_prompt(prompt: String) {
-    SEARCH_TOOL_PROMPT.set(prompt).unwrap_or_default();
-}
 
 #[derive(Debug, Clone)]
 pub struct TidbServer {
@@ -257,8 +251,6 @@ impl ServerHandler for TidbServer {
                         McpError::invalid_params("No query provided to `search` tool", None)
                     })?;
 
-                // let prompt = SEARCH_TOOL_PROMPT.get().unwrap();
-                // let prompt = prompt.replace("{query}", &query);
                 let prompt = format!("{PROMPT_SEARCH_TOOL}\n\n### Input Query\n{query:#?}");
 
                 Ok(GetPromptResult {

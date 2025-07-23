@@ -11,7 +11,7 @@ use rmcp::transport::{
 };
 use rustls::crypto::{CryptoProvider, ring::default_provider};
 use std::{env, path::PathBuf};
-use tidb::{TidbServer, set_search_tool_prompt};
+use tidb::TidbServer;
 use tokio::sync::RwLock as TokioRwLock;
 use tracing::{error, info};
 use tracing_subscriber::{self, layer::SubscriberExt, util::SubscriberInitExt};
@@ -41,12 +41,6 @@ struct Args {
     /// Maximum number of query results to return
     #[arg(long, default_value = "10")]
     limit: u64,
-    /// The prompt for the `search` mcp tool
-    #[arg(
-        long,
-        default_value = "Please extract 3 to 5 keywords from my question, separated by spaces. Then, try to return a tool call that invokes the keyword search tool.\n\nMy question is: {query}"
-    )]
-    search_tool_prompt: String,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
@@ -124,9 +118,6 @@ async fn main() -> anyhow::Result<()> {
     TIDB_ACCESS_CONFIG
         .set(TokioRwLock::new(config))
         .map_err(|_| anyhow::anyhow!("Failed to set TIDB_ACCESS_CONFIG"))?;
-
-    // Set the search tool prompt from CLI
-    set_search_tool_prompt(args.search_tool_prompt);
 
     info!("Starting Cardea TiDB MCP server on {}", args.socket_addr);
 
