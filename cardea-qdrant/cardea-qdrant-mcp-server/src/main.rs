@@ -2,7 +2,7 @@ mod qdrant;
 
 use clap::{Parser, ValueEnum};
 use once_cell::sync::OnceCell;
-use qdrant::{QdrantServer, set_search_tool_prompt};
+use qdrant::QdrantServer;
 use rmcp::{
     ServiceExt,
     transport::{
@@ -37,12 +37,6 @@ struct Args {
     /// Score threshold for the results
     #[arg(long, default_value = "0.5")]
     score_threshold: f32,
-    /// The prompt for the `search` mcp tool
-    #[arg(
-        long,
-        default_value = "Perform vector search with the input vector. Return a tool call that invokes the vector search tool.\n\nThe input vector is: [0.0,0.0,0.0,0.0]"
-    )]
-    search_tool_prompt: String,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
@@ -80,9 +74,6 @@ async fn main() -> anyhow::Result<()> {
     CONNECTION_CONFIG
         .set(RwLock::new(connection_config))
         .unwrap();
-
-    // Set the search tool prompt from CLI
-    set_search_tool_prompt(args.search_tool_prompt);
 
     tracing::info!("Starting Cardea Qdrant MCP server on {}", args.socket_addr);
 

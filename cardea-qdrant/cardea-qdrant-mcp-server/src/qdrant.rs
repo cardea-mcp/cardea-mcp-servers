@@ -8,14 +8,7 @@ use rmcp::{
     tool, tool_handler, tool_router,
 };
 use serde_json::{Value, json};
-use std::sync::OnceLock;
 use tracing::error;
-
-static SEARCH_TOOL_PROMPT: OnceLock<String> = OnceLock::new();
-
-pub fn set_search_tool_prompt(prompt: String) {
-    SEARCH_TOOL_PROMPT.set(prompt).unwrap_or_default();
-}
 
 #[derive(Debug, Clone)]
 pub struct QdrantServer {
@@ -230,7 +223,7 @@ impl ServerHandler for QdrantServer {
     ) -> Result<GetPromptResult, McpError> {
         match name.as_str() {
             "search" => {
-                let prompt = SEARCH_TOOL_PROMPT.get().unwrap();
+                let prompt = "Perform vector search with the input vector. Return a tool call that invokes the vector search tool.\n\nThe input vector is: [0.0,0.0,0.0,0.0]";
 
                 Ok(GetPromptResult {
                     description: None,
