@@ -1,3 +1,4 @@
+use rmcp::model::CallToolResult;
 use rmcp::schemars;
 use serde::{Deserialize, Serialize};
 
@@ -5,10 +6,16 @@ use serde::{Deserialize, Serialize};
 pub struct ListIndicesResponse {
     pub indices: Vec<IndexInfo>,
 }
-impl From<rmcp::model::CallToolResult> for ListIndicesResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<ListIndicesResponse>(content).unwrap()
+impl From<CallToolResult> for ListIndicesResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<ListIndicesResponse>(&content).unwrap()
     }
 }
 
@@ -47,10 +54,16 @@ pub struct IndexInfo {
 pub struct ListAliasesResponse {
     pub aliases: Vec<AliasInfo>,
 }
-impl From<rmcp::model::CallToolResult> for ListAliasesResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<ListAliasesResponse>(content).unwrap()
+impl From<CallToolResult> for ListAliasesResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<ListAliasesResponse>(&content).unwrap()
     }
 }
 
@@ -89,10 +102,16 @@ pub struct SearchResponse {
     pub shards: Shards,
     pub hits: Hits,
 }
-impl From<rmcp::model::CallToolResult> for SearchResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<SearchResponse>(content).unwrap()
+impl From<CallToolResult> for SearchResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<SearchResponse>(&content).unwrap()
     }
 }
 

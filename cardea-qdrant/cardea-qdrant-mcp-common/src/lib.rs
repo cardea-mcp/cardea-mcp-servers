@@ -1,4 +1,4 @@
-use rmcp::schemars;
+use rmcp::{model::CallToolResult, schemars};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use std::collections::HashMap;
@@ -18,10 +18,16 @@ pub struct CreateCollectionResponse {
     #[schemars(description = "The time it took to create the collection")]
     pub time: f64,
 }
-impl From<rmcp::model::CallToolResult> for CreateCollectionResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<CreateCollectionResponse>(content).unwrap()
+impl From<CallToolResult> for CreateCollectionResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<CreateCollectionResponse>(&content).unwrap()
     }
 }
 
@@ -86,10 +92,16 @@ pub struct UpsertPointsResponse {
     #[schemars(description = "The time it took to upsert the points")]
     pub time: f64,
 }
-impl From<rmcp::model::CallToolResult> for UpsertPointsResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<UpsertPointsResponse>(content).unwrap()
+impl From<CallToolResult> for UpsertPointsResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<UpsertPointsResponse>(&content).unwrap()
     }
 }
 
@@ -106,10 +118,16 @@ pub struct SearchPointsResponse {
     #[schemars(description = "The time it took to search the points")]
     pub time: f64,
 }
-impl From<rmcp::model::CallToolResult> for SearchPointsResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<SearchPointsResponse>(content).unwrap()
+impl From<CallToolResult> for SearchPointsResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<SearchPointsResponse>(&content).unwrap()
     }
 }
 

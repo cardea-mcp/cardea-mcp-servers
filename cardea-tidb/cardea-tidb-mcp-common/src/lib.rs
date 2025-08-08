@@ -1,6 +1,6 @@
 use endpoints::rag::keyword_search::SearchHit;
 use mysql_common::prelude::FromRow;
-use rmcp::schemars;
+use rmcp::{model::CallToolResult, schemars};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
@@ -14,10 +14,16 @@ pub struct TidbSearchResponse {
     #[schemars(description = "The hits of the tidb server")]
     pub hits: Vec<TidbSearchHit>,
 }
-impl From<rmcp::model::CallToolResult> for TidbSearchResponse {
-    fn from(result: rmcp::model::CallToolResult) -> Self {
-        let content = result.content[0].as_text().unwrap().text.as_ref();
-        serde_json::from_str::<TidbSearchResponse>(content).unwrap()
+impl From<CallToolResult> for TidbSearchResponse {
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content {
+            Some(contents) if !contents.is_empty() => {
+                contents[0].as_text().unwrap().text.to_string()
+            }
+            _ => String::new(),
+        };
+
+        serde_json::from_str::<TidbSearchResponse>(&content).unwrap()
     }
 }
 
