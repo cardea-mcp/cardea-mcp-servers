@@ -35,6 +35,7 @@ impl WeatherServer {
             }
         };
 
+        let unit = unit.unwrap_or(TemperatureUnit::Celsius);
         let openweathermap_unit = unit.to_openweathermap_unit();
 
         // * get geographic coordinates of the city
@@ -118,11 +119,11 @@ impl ServerHandler for WeatherServer {
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct GetWeatherRequest {
     #[schemars(
-        description = "the city to get the weather for, e.g., 'Beijing', 'New York', 'Tokyo'"
+        description = "The city to get the weather for, e.g., 'Beijing', 'New York', 'Tokyo'"
     )]
     pub location: String,
-    #[schemars(description = "the unit to use for the temperature, e.g., 'celsius', 'fahrenheit'")]
-    pub unit: TemperatureUnit,
+    #[schemars(description = "The unit to use for the temperature, e.g., 'celsius', 'fahrenheit'")]
+    pub unit: Option<TemperatureUnit>,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, schemars::JsonSchema, Clone)]
@@ -143,9 +144,9 @@ impl TemperatureUnit {
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, schemars::JsonSchema)]
 pub struct GetWeatherResponse {
-    #[schemars(description = "the temperature in celsius or fahrenheit")]
+    #[schemars(description = "The temperature in celsius or fahrenheit")]
     pub temperature: f64,
-    #[schemars(description = "the unit of the temperature")]
+    #[schemars(description = "The unit of the temperature")]
     pub unit: TemperatureUnit,
     // #[schemars(description = "the description of the weather")]
     // pub description: String,
