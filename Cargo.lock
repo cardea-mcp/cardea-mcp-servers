@@ -956,9 +956,9 @@ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 
 [[package]]
 name = "endpoints"
-version = "0.34.0"
+version = "0.34.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "baed8a5313e11bf93218a978954437f4b8cfb889e48a2b096817156bfdd5eff3"
+checksum = "f46f0a3da2e8a60e1f9aa597f535404371e9c76630bc9b76a0e37598aedcb4dc"
 dependencies = [
  "indexmap",
  "serde",
