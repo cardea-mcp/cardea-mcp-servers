@@ -4,6 +4,8 @@ use rmcp::{
     model::*,
     schemars, tool, tool_handler, tool_router,
 };
+use crate::types::*;
+use chrono::{Duration, TimeZone, Utc};
 
 #[derive(Debug, Clone)]
 pub struct WeatherServer {
@@ -88,12 +90,30 @@ impl WeatherServer {
             )
         })?;
 
+        tracing::info!("weather_data:\n{}", serde_json::to_string_pretty(&weather_data).unwrap());
+
+        let weather_response = {
+            // convert weather_data to WeatherResponse
+            let weather_response: WeatherResponse =
+                serde_json::from_value(weather_data.clone()).map_err(|e| {
+                    McpError::new(
+                        ErrorCode::INTERNAL_ERROR,
+                        format!("Failed to parse weather response: {e}"),
+                        None,
+                    )
+                })?;
+            tracing::info!("weather_response: {weather_response:#?}");
+            weather_response
+        };
+
         let temperature = weather_data["main"]["temp"].as_f64().unwrap();
         tracing::info!("temperature: {}", temperature);
         let description = weather_data["weather"][0]["description"].as_str().unwrap();
         tracing::info!("description: {}", description);
 
-        let content = Content::json(GetWeatherResponse { temperature, unit })?;
+        let weather_info = format_weather_info(&weather_response);
+
+        let content = Content::json(GetWeatherResponse { weather: weather_info })?;
 
         let res = CallToolResult::success(vec![content]);
 
@@ -144,10 +164,53 @@ impl TemperatureUnit {
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, schemars::JsonSchema)]
 pub struct GetWeatherResponse {
-    #[schemars(description = "The temperature in celsius or fahrenheit")]
-    pub temperature: f64,
-    #[schemars(description = "The unit of the temperature")]
-    pub unit: TemperatureUnit,
-    // #[schemars(description = "the description of the weather")]
-    // pub description: String,
+    #[schemars(description = "the weather information")]
+    pub weather: String,
+}
+
+
+fn format_weather_info(weather: &WeatherResponse) -> String {
+    let weather_item = &weather.weather[0];  // Assuming only one weather item
+    let rain_info = weather.rain.as_ref().map_or("(No rain information)".to_string(), |r| format!("(Rain: {} mm/h)", r.one_hour));
+    let snow_info = weather.snow.as_ref().map_or("(No snow information)".to_string(), |s| format!("(Snow: {} mm/h)", s.one_hour));
+
+    // Convert sunrise and sunset times to local timezone
+    let sunrise_local = Utc.timestamp_opt(weather.sys.sunrise as i64, 0).unwrap() + Duration::seconds(weather.timezone as i64);
+    let sunset_local = Utc.timestamp_opt(weather.sys.sunset as i64, 0).unwrap() + Duration::seconds(weather.timezone as i64);
+
+    format!(
+        "Current Location: {} (Country: {}, Latitude: {}, Longitude: {}, Timezone Offset: {} seconds).\n\
+         Weather Condition: {}.\n\
+         Temperature: {}°C (Feels like: {}°C, Min: {}°C, Max: {}°C).\n\
+         Atmosphere: Pressure {} hPa (Sea Level: {} hPa, Ground Level: {} hPa), Humidity {}%.\n\
+         Wind: Speed {} m/s, Direction {}°, Gust {} m/s.\n\
+         Clouds: Cloudiness {}%.\n\
+         Visibility: {} meters.\n\
+         Other: Data Calculation Time (Unix UTC): {}, Sunrise: {}, Sunset: {}.\n\
+         {}{}",
+        weather.name,
+        weather.sys.country,
+        weather.coord.lat,
+        weather.coord.lon,
+        weather.timezone,
+        weather_item.main,
+        weather.main.temp,
+        weather.main.feels_like,
+        weather.main.temp_min,
+        weather.main.temp_max,
+        weather.main.pressure,
+        weather.main.sea_level,
+        weather.main.grnd_level,
+        weather.main.humidity,
+        weather.wind.speed,
+        weather.wind.deg,
+        weather.wind.gust,
+        weather.clouds.all,
+        weather.visibility,
+        weather.dt,
+        sunrise_local.format("%Y-%m-%d %H:%M:%S"),
+        sunset_local.format("%Y-%m-%d %H:%M:%S"),
+        rain_info,
+        snow_info
+    )
 }
