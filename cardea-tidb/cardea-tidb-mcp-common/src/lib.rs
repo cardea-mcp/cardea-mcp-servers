@@ -1,4 +1,3 @@
-use endpoints::rag::keyword_search::SearchHit;
 use mysql_common::prelude::FromRow;
 use rmcp::{model::CallToolResult, schemars};
 use serde::{Deserialize, Serialize};
@@ -35,13 +34,4 @@ pub struct TidbSearchHit {
     pub title: String,
     #[schemars(description = "The content of the tidb server")]
     pub content: String,
-}
-impl From<TidbSearchHit> for SearchHit {
-    fn from(value: TidbSearchHit) -> Self {
-        SearchHit {
-            title: value.title,
-            content: value.content,
-            score: 0.0,
-        }
-    }
 }

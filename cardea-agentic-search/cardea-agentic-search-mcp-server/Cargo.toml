@@ -26,7 +26,7 @@ hyper-util = { workspace = true, features = ["tokio"] }
 tokio-tungstenite = { workspace = true }
 reqwest = { workspace = true, features = ["json", "rustls-tls"] }
 pin-project-lite = { workspace = true }
-endpoints = { workspace = true, features = ["index"] }
+endpoints = { workspace = true }
 cardea-agentic-search-mcp-common = { workspace = true }
 mysql = { version = "26.0.0", default-features = false, features = ["rustls-tls-ring"] }
 clap = { workspace = true, features = ["derive"] }

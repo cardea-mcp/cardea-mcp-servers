@@ -22,4 +22,4 @@ hyper-util         = { workspace = true, features = ["tokio"] }
 tokio-tungstenite  = { workspace = true }
 reqwest            = { workspace = true, features = ["json"] }
 pin-project-lite   = { workspace = true }
-endpoints          = { workspace = true, features = ["index"] }
+endpoints = { workspace = true, features = ["keyword_search"] }

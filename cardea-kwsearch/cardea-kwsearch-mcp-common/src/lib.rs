@@ -1,4 +1,4 @@
-use endpoints::rag::keyword_search::{
+use endpoints::keyword_search::{
     DocumentInput, DocumentResult, IndexResponse, QueryResponse, SearchHit,
 };
 use rmcp::{model::CallToolResult, schemars};

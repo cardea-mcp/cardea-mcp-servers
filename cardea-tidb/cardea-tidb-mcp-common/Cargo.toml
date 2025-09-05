@@ -9,5 +9,4 @@ license.workspace    = true
 serde        = { workspace = true, features = ["derive"] }
 serde_json   = { workspace = true }
 rmcp         = { workspace = true, features = ["macros"] }
-endpoints    = { workspace = true, features = ["index"] }
-mysql_common = "0.34.1"
+mysql_common = "0.35.5"

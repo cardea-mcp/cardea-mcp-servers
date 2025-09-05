@@ -20,4 +20,4 @@ hyper-util         = { workspace = true, features = ["tokio"] }
 tokio-tungstenite  = { workspace = true }
 reqwest            = { workspace = true, features = ["json"] }
 pin-project-lite   = { workspace = true }
-mysql_common       = "0.34.1"
+mysql_common       = "0.35.5"

@@ -1,7 +1,7 @@
 use clap::{Parser, ValueEnum};
 use rmcp::{
     model::{CallToolRequestParam, ClientCapabilities, ClientInfo, Implementation},
-    service::ServiceExt,
+    ServiceExt,
     transport::{SseClientTransport, StreamableHttpClientTransport},
 };
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};

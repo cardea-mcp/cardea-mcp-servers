@@ -2,7 +2,7 @@ use crate::CONNECTION_CONFIG;
 use cardea_kwsearch_mcp_common::{
     CreateIndexRequest, CreateIndexResponse, SearchDocumentsRequest, SearchDocumentsResponse,
 };
-use endpoints::rag::keyword_search::{IndexRequest, IndexResponse, QueryRequest, QueryResponse};
+use endpoints::keyword_search::{IndexRequest, IndexResponse, QueryRequest, QueryResponse};
 use rmcp::{
     ErrorData as McpError, RoleServer, ServerHandler,
     handler::server::{router::tool::ToolRouter, tool::*},
