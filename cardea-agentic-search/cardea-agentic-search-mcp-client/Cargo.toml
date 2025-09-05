@@ -9,9 +9,9 @@ license.workspace    = true
 rmcp = { workspace = true, features = [
     "client",
     "macros",
-    "transport-sse-client",
+    "transport-sse-client-reqwest",
     "reqwest",
-    "transport-streamable-http-client",
+    "transport-streamable-http-client-reqwest",
 ] }
 tokio = { workspace = true, features = ["macros", "rt", "rt-multi-thread", "io-std", "net", "fs", "time", "signal"] }
 serde_json = { workspace = true }

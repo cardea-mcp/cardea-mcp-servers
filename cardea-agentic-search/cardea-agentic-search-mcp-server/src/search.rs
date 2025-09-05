@@ -11,7 +11,7 @@ use mysql::prelude::*;
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE};
 use rmcp::{
     ErrorData as McpError, RoleServer, ServerHandler,
-    handler::server::{router::tool::ToolRouter, tool::*},
+    handler::server::{router::tool::ToolRouter, wrapper::Parameters},
     model::*,
     service::RequestContext,
     tool, tool_handler, tool_router,

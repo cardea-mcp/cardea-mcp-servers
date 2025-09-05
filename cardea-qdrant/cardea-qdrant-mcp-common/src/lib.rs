@@ -20,11 +20,9 @@ pub struct CreateCollectionResponse {
 }
 impl From<CallToolResult> for CreateCollectionResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<CreateCollectionResponse>(&content).unwrap()
@@ -94,11 +92,9 @@ pub struct UpsertPointsResponse {
 }
 impl From<CallToolResult> for UpsertPointsResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<UpsertPointsResponse>(&content).unwrap()
@@ -120,11 +116,9 @@ pub struct SearchPointsResponse {
 }
 impl From<CallToolResult> for SearchPointsResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<SearchPointsResponse>(&content).unwrap()

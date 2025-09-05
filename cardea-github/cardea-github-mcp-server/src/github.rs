@@ -2,7 +2,7 @@ use cardea_github_mcp_common::{GetStarCountRequest, GetStarCountResponse};
 use octocrab::OctocrabBuilder;
 use rmcp::{
     ErrorData as McpError, ServerHandler,
-    handler::server::{router::tool::ToolRouter, tool::*},
+    handler::server::{router::tool::ToolRouter, wrapper::Parameters},
     model::*,
     tool, tool_handler, tool_router,
 };

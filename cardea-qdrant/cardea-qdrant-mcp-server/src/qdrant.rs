@@ -2,7 +2,7 @@ use crate::CONNECTION_CONFIG;
 use cardea_qdrant_mcp_common::*;
 use rmcp::{
     ErrorData as McpError, RoleServer, ServerHandler,
-    handler::server::{router::tool::ToolRouter, tool::*},
+    handler::server::{router::tool::ToolRouter, wrapper::Parameters},
     model::*,
     service::RequestContext,
     tool, tool_handler, tool_router,

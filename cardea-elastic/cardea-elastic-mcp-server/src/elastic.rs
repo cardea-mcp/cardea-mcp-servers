@@ -2,7 +2,7 @@ use crate::CONNECTION_CONFIG;
 use cardea_elastic_mcp_common::*;
 use rmcp::{
     ErrorData as McpError, ServerHandler,
-    handler::server::{router::tool::ToolRouter, tool::*},
+    handler::server::{router::tool::ToolRouter, wrapper::Parameters},
     model::*,
     tool, tool_handler, tool_router,
 };

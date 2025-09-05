@@ -17,11 +17,9 @@ pub struct GetStarCountResponse {
 }
 impl From<CallToolResult> for GetStarCountResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<GetStarCountResponse>(&content).unwrap()

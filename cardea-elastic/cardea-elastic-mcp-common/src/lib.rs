@@ -8,11 +8,9 @@ pub struct ListIndicesResponse {
 }
 impl From<CallToolResult> for ListIndicesResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<ListIndicesResponse>(&content).unwrap()
@@ -56,11 +54,9 @@ pub struct ListAliasesResponse {
 }
 impl From<CallToolResult> for ListAliasesResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<ListAliasesResponse>(&content).unwrap()
@@ -104,11 +100,9 @@ pub struct SearchResponse {
 }
 impl From<CallToolResult> for SearchResponse {
     fn from(result: CallToolResult) -> Self {
-        let content = match result.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<SearchResponse>(&content).unwrap()

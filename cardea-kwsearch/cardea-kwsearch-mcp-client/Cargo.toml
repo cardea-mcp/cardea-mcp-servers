@@ -11,9 +11,9 @@ rmcp = { workspace = true, features = [
     "macros",
     "transport-io",
     "transport-child-process",
-    "transport-sse-client",
+    "transport-sse-client-reqwest",
     "reqwest",
-    "transport-streamable-http-client",
+    "transport-streamable-http-client-reqwest",
 ] }
 tokio = { workspace = true, features = ["macros", "rt", "rt-multi-thread", "io-std", "net", "fs", "time"] }
 serde_json = { workspace = true }

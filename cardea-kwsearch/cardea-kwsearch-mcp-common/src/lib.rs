@@ -46,12 +46,10 @@ impl From<IndexResponse> for CreateIndexResponse {
     }
 }
 impl From<CallToolResult> for CreateIndexResponse {
-    fn from(value: CallToolResult) -> Self {
-        let content = match value.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<CreateIndexResponse>(&content).unwrap()
@@ -98,12 +96,10 @@ impl From<QueryResponse> for SearchDocumentsResponse {
     }
 }
 impl From<CallToolResult> for SearchDocumentsResponse {
-    fn from(value: CallToolResult) -> Self {
-        let content = match value.content {
-            Some(contents) if !contents.is_empty() => {
-                contents[0].as_text().unwrap().text.to_string()
-            }
-            _ => String::new(),
+    fn from(result: CallToolResult) -> Self {
+        let content = match result.content.is_empty() {
+            false => result.content[0].as_text().unwrap().text.to_string(),
+            true => String::new(),
         };
 
         serde_json::from_str::<SearchDocumentsResponse>(&content).unwrap()
