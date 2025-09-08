@@ -951,8 +951,9 @@ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 
 [[package]]
 name = "endpoints"
-version = "0.34.1"
-source = "git+https://github.com/LlamaEdge/LlamaEdge.git?branch=refactor-opt-endpoints#770b0dada211df7ddf6a5dffdd698fc1d8b1e994"
+version = "0.35.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99a878b66331b226f903683d863a599c1b20911bb716956bb2d02dcddb96bc8b"
 dependencies = [
  "indexmap",
  "serde",
