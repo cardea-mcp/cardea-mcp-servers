@@ -20,7 +20,7 @@ use serde_json::{Value, json};
 use std::collections::HashSet;
 use tracing::{debug, error, info, warn};
 
-const PROMPT_KEYWORD_EXTRACTOR: &str = r#"
+const DEFAULT_PROMPT_KEYWORD_EXTRACTOR: &str = r#"
 You are a multilingual keyword extractor. Your task is to extract the most relevant and concise keywords or key phrases from the given user query.
 
 Follow these requirements strictly:
@@ -418,7 +418,9 @@ impl AgenticSearchServer {
         let config = self.config.chat_service.as_ref().unwrap();
 
         let text = query.as_ref();
-        let user_prompt = format!("{PROMPT_KEYWORD_EXTRACTOR}\n\n### Input Query\n{text:#?}");
+        let prompt = std::env::var("PROMPT_KEYWORD_EXTRACTOR")
+            .unwrap_or(DEFAULT_PROMPT_KEYWORD_EXTRACTOR.to_string());
+        let user_prompt = format!("{prompt}\n\n### Input Query\n{text:#?}");
 
         let user_message = ChatCompletionRequestMessage::new_user_message(
             ChatCompletionUserMessageContent::Text(user_prompt),
