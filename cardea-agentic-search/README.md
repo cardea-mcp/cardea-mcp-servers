@@ -9,6 +9,7 @@ A Model Context Protocol (MCP) server that provides agentic search capabilities 
 - **Combined Search**: Use both vector and keyword search simultaneously for comprehensive results
 - **Flexible Configuration**: Choose your search mode via command-line subcommands
 - **Multiple Transport Types**: Support for both SSE and Streamable HTTP MCP transports
+- **Customizable Keyword Extraction**: Configure keyword extraction prompts via environment variables
 
 ## Architecture
 
@@ -115,6 +116,7 @@ These options apply to all search modes:
 
 - `CHAT_SERVICE_API_KEY`: API key for chat service (optional)
 - `EMBEDDING_SERVICE_API_KEY`: API key for embedding service (optional)
+- `PROMPT_KEYWORD_EXTRACTOR`: Custom prompt for keyword extraction (optional, uses built-in default if not set)
 
 ## Examples
 
@@ -177,15 +179,34 @@ export EMBEDDING_SERVICE_API_KEY=your_embedding_api_key
 
 ### Keyword Search Process
 
-1. **Keyword Extraction**: The user query is sent to the chat service to extract relevant keywords
+1. **Keyword Extraction**: The user query is sent to the chat service to extract relevant keywords using a customizable prompt
 2. **Full-text Search**: The extracted keywords are used to perform full-text search in TiDB
 3. **Result Formatting**: Results are formatted and returned with document content
 
-### Combined Search Process
+#### Keyword Extraction Customization
 
-1. **Parallel Execution**: Both vector and keyword search are executed in parallel
-2. **Result Merging**: Results from both searches are combined and formatted
-3. **Comprehensive Results**: Users get both semantic and keyword-based search results
+The keyword extraction process uses an intelligent prompt that can be customized via the `PROMPT_KEYWORD_EXTRACTOR` environment variable. The default prompt is a multilingual keyword extractor that:
+
+```text
+You are a multilingual keyword extractor. Your task is to extract the most relevant and concise keywords or key phrases from the given user query.
+
+Follow these requirements strictly:
+- Detect the language of the query automatically.
+- Return 3 to 7 keywords or keyphrases that best represent the query's core intent.
+- Keep the extracted keywords in the **original language** (do not translate).
+- Include **multi-word expressions** if they convey meaningful concepts.
+- **Avoid all types of stop words, question words, filler words, or overly generic terms**, such as:
+  - English: what, how, why, is, the, of, and, etc.
+  - Chinese: 什么、怎么、如何、是、的、了、吗、啊 等。
+- Do **not** include punctuation or meaningless words.
+- Only return the final keywords, separated by a **single space**.
+
+Examples:
+- Input: "What is the impact of artificial intelligence on education?"
+  Output: artificial intelligence education impact
+- Input: "什么是人工智能对教育的影响？"
+  Output: 人工智能 教育 影响
+```
 
 ## Development
 
