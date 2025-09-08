@@ -1,11 +1,11 @@
+use crate::types::*;
+use chrono::{Duration, TimeZone, Utc};
 use rmcp::{
     ErrorData as McpError, ServerHandler,
     handler::server::{router::tool::ToolRouter, tool::*},
     model::*,
     schemars, tool, tool_handler, tool_router,
 };
-use crate::types::*;
-use chrono::{Duration, TimeZone, Utc};
 
 #[derive(Debug, Clone)]
 pub struct WeatherServer {
@@ -90,12 +90,15 @@ impl WeatherServer {
             )
         })?;
 
-        tracing::info!("weather_data:\n{}", serde_json::to_string_pretty(&weather_data).unwrap());
+        tracing::info!(
+            "weather_data:\n{}",
+            serde_json::to_string_pretty(&weather_data).unwrap()
+        );
 
         let weather_response = {
             // convert weather_data to WeatherResponse
-            let weather_response: WeatherResponse =
-                serde_json::from_value(weather_data.clone()).map_err(|e| {
+            let weather_response: WeatherResponse = serde_json::from_value(weather_data.clone())
+                .map_err(|e| {
                     McpError::new(
                         ErrorCode::INTERNAL_ERROR,
                         format!("Failed to parse weather response: {e}"),
@@ -113,7 +116,9 @@ impl WeatherServer {
 
         let weather_info = format_weather_info(&weather_response);
 
-        let content = Content::json(GetWeatherResponse { weather: weather_info })?;
+        let content = Content::json(GetWeatherResponse {
+            weather: weather_info,
+        })?;
 
         let res = CallToolResult::success(vec![content]);
 
@@ -168,15 +173,26 @@ pub struct GetWeatherResponse {
     pub weather: String,
 }
 
-
 fn format_weather_info(weather: &WeatherResponse) -> String {
-    let weather_item = &weather.weather[0];  // Assuming only one weather item
-    let rain_info = weather.rain.as_ref().map_or("(No rain information)".to_string(), |r| format!("(Rain: {} mm/h)", r.one_hour));
-    let snow_info = weather.snow.as_ref().map_or("(No snow information)".to_string(), |s| format!("(Snow: {} mm/h)", s.one_hour));
+    let weather_item = &weather.weather[0]; // Assuming only one weather item
+    let rain_info = weather
+        .rain
+        .as_ref()
+        .map_or("(No rain information)".to_string(), |r| {
+            format!("(Rain: {} mm/h)", r.one_hour)
+        });
+    let snow_info = weather
+        .snow
+        .as_ref()
+        .map_or("(No snow information)".to_string(), |s| {
+            format!("(Snow: {} mm/h)", s.one_hour)
+        });
 
     // Convert sunrise and sunset times to local timezone
-    let sunrise_local = Utc.timestamp_opt(weather.sys.sunrise as i64, 0).unwrap() + Duration::seconds(weather.timezone as i64);
-    let sunset_local = Utc.timestamp_opt(weather.sys.sunset as i64, 0).unwrap() + Duration::seconds(weather.timezone as i64);
+    let sunrise_local = Utc.timestamp_opt(weather.sys.sunrise as i64, 0).unwrap()
+        + Duration::seconds(weather.timezone as i64);
+    let sunset_local = Utc.timestamp_opt(weather.sys.sunset as i64, 0).unwrap()
+        + Duration::seconds(weather.timezone as i64);
 
     format!(
         "Current Location: {} (Country: {}, Latitude: {}, Longitude: {}, Timezone Offset: {} seconds).\n\

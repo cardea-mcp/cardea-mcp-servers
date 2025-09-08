@@ -1,5 +1,5 @@
-mod weather;
 mod types;
+mod weather;
 
 use clap::{Parser, ValueEnum};
 use rmcp::transport::{
