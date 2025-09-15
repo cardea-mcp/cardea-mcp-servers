@@ -1,5 +1,8 @@
 # MCP Servers
 
+> [!NOTE]
+> The `cardea-agentic-search` MCP server is migrated to a separate repository: [agentic-search](https://github.com/cardea-mcp/agentic-search)
+
 ## Cardea Calculator MCP Server
 
 Visit [cardea-calculator/README.md](cardea-calculator/README.md) for more information.
@@ -27,10 +30,6 @@ Visit [cardea-tidb/README.md](cardea-tidb/README.md) for more information.
 ## Cardea Github MCP Server
 
 Visit [cardea-github/README.md](cardea-github/README.md) for more information.
-
-## Cardea Agentic Search MCP Server
-
-Visit [cardea-agentic-search/README.md](cardea-agentic-search/README.md) for more information.
 
 ## Cardea Web Search MCP Server
 

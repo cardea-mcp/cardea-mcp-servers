@@ -262,68 +262,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
-name = "cardea-agentic-search-mcp-client"
-version = "0.10.0"
-dependencies = [
- "anyhow",
- "cardea-agentic-search-mcp-common",
- "clap",
- "rmcp",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-agentic-search-mcp-common"
-version = "0.10.0"
-dependencies = [
- "anyhow",
- "futures",
- "hyper",
- "hyper-util",
- "mysql_common",
- "pin-project-lite",
- "rand",
- "reqwest",
- "rmcp",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-agentic-search-mcp-server"
-version = "0.10.0"
-dependencies = [
- "anyhow",
- "axum",
- "cardea-agentic-search-mcp-common",
- "clap",
- "endpoints",
- "futures",
- "hyper",
- "hyper-util",
- "mysql",
- "pin-project-lite",
- "rand",
- "regex",
- "reqwest",
- "rmcp",
- "rustls",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "cardea-calculator-mcp-client"
 version = "0.10.0"
 dependencies = [

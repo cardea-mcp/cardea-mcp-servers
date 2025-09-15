@@ -1,8 +1,5 @@
 [workspace]
 members = [
-    "cardea-agentic-search/cardea-agentic-search-mcp-client",
-    "cardea-agentic-search/cardea-agentic-search-mcp-common",
-    "cardea-agentic-search/cardea-agentic-search-mcp-server",
     "cardea-calculator/cardea-calculator-mcp-client",
     "cardea-calculator/cardea-calculator-mcp-server",
     "cardea-elastic/cardea-elastic-mcp-client",
@@ -47,7 +44,6 @@ cardea-kwsearch-mcp-common       = { path = "cardea-kwsearch/cardea-kwsearch-mcp
 cardea-elastic-mcp-common        = { path = "cardea-elastic/cardea-elastic-mcp-common" }
 cardea-tidb-mcp-common           = { path = "cardea-tidb/cardea-tidb-mcp-common" }
 cardea-github-mcp-common         = { path = "cardea-github/cardea-github-mcp-common" }
-cardea-agentic-search-mcp-common = { path = "cardea-agentic-search/cardea-agentic-search-mcp-common" }
 clap                             = "4.5"
 endpoints                        = "0.35.0"
 once_cell                        = "1.18"
