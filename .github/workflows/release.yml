@@ -62,7 +62,6 @@ jobs:
           strip "target/${{ matrix.target }}/release/cardea-elastic-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-tidb-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-github-mcp-server"
-          strip "target/${{ matrix.target }}/release/cardea-agentic-search-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-web-search-mcp-server"
 
           ls -al "target/${{ matrix.target }}/release"
@@ -80,7 +79,6 @@ jobs:
           cp "../target/${{ matrix.target }}/release/cardea-elastic-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-tidb-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-github-mcp-server" ./
-          cp "../target/${{ matrix.target }}/release/cardea-agentic-search-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-web-search-mcp-server" ./
 
           tar -czf "${{ matrix.archive-name }}" *
@@ -143,7 +141,6 @@ jobs:
           strip "target/${{ matrix.target }}/release/cardea-elastic-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-tidb-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-github-mcp-server"
-          strip "target/${{ matrix.target }}/release/cardea-agentic-search-mcp-server"
           strip "target/${{ matrix.target }}/release/cardea-web-search-mcp-server"
 
           ls -al "target/${{ matrix.target }}/release"
@@ -161,7 +158,6 @@ jobs:
           cp "../target/${{ matrix.target }}/release/cardea-elastic-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-tidb-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-github-mcp-server" ./
-          cp "../target/${{ matrix.target }}/release/cardea-agentic-search-mcp-server" ./
           cp "../target/${{ matrix.target }}/release/cardea-web-search-mcp-server" ./
 
           tar -czf "${{ matrix.archive-name }}" *
