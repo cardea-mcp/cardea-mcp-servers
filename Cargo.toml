@@ -1,7 +1,5 @@
 [workspace]
 members = [
-    "cardea-calculator/cardea-calculator-mcp-client",
-    "cardea-calculator/cardea-calculator-mcp-server",
     "cardea-elastic/cardea-elastic-mcp-client",
     "cardea-elastic/cardea-elastic-mcp-common",
     "cardea-elastic/cardea-elastic-mcp-server",
@@ -14,13 +12,9 @@ members = [
     "cardea-qdrant/cardea-qdrant-mcp-client",
     "cardea-qdrant/cardea-qdrant-mcp-common",
     "cardea-qdrant/cardea-qdrant-mcp-server",
-    "cardea-web-search/cardea-web-search-mcp-client",
-    "cardea-web-search/cardea-web-search-mcp-server",
     "cardea-tidb/cardea-tidb-mcp-client",
     "cardea-tidb/cardea-tidb-mcp-common",
     "cardea-tidb/cardea-tidb-mcp-server",
-    "cardea-weather/cardea-weather-mcp-client",
-    "cardea-weather/cardea-weather-mcp-server",
 ]
 resolver = "3"
 

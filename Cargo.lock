@@ -262,41 +262,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
-name = "cardea-calculator-mcp-client"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "clap",
- "rmcp",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-calculator-mcp-server"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "axum",
- "clap",
- "futures",
- "hyper",
- "hyper-util",
- "pin-project-lite",
- "rand",
- "reqwest",
- "rmcp",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "cardea-elastic-mcp-client"
 version = "0.11.0"
 dependencies = [
@@ -546,72 +511,6 @@ dependencies = [
  "serde_json",
  "tokio",
  "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-weather-mcp-client"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "clap",
- "rmcp",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-weather-mcp-server"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "axum",
- "chrono",
- "clap",
- "futures",
- "hyper",
- "hyper-util",
- "pin-project-lite",
- "rand",
- "reqwest",
- "rmcp",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-web-search-mcp-client"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "clap",
- "rmcp",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "cardea-web-search-mcp-server"
-version = "0.11.0"
-dependencies = [
- "anyhow",
- "axum",
- "clap",
- "once_cell",
- "reqwest",
- "rmcp",
- "serde",
- "serde_json",
- "tokio",
  "tracing",
  "tracing-subscriber",
 ]

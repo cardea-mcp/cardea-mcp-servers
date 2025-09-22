@@ -2,14 +2,9 @@
 
 > [!NOTE]
 > The `cardea-agentic-search` MCP server is migrated to a separate repository: [agentic-search](https://github.com/cardea-mcp/agentic-search)
-
-## Cardea Calculator MCP Server
-
-Visit [cardea-calculator/README.md](cardea-calculator/README.md) for more information.
-
-## Cardea Weather MCP Server
-
-Visit [cardea-weather/README.md](cardea-weather/README.md) for more information.
+> The `cardea-calculator` MCP server is migrated to a separate repository: [cardea-calculator](https://github.com/cardea-mcp/cardea-calculator)
+> The `cardea-weather` MCP server is migrated to a separate repository: [cardea-weather](https://github.com/cardea-mcp/cardea-weather)
+> The `web-search` MCP server is migrated to a separate repository: [web-search](https://github.com/cardea-mcp/web-search)
 
 ## Cardea Qdrant MCP Server
 
@@ -30,7 +25,3 @@ Visit [cardea-tidb/README.md](cardea-tidb/README.md) for more information.
 ## Cardea Github MCP Server
 
 Visit [cardea-github/README.md](cardea-github/README.md) for more information.
-
-## Cardea Web Search MCP Server
-
-Visit [cardea-web-search/README.md](cardea-web-search/README.md) for more information.
